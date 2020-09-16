@@ -1,0 +1,50 @@
+# 端口
+server:
+  port: 8084
+  context-path: "/server/"
+
+# Spring配置
+spring:
+  profiles:
+    active: @profileActive@
+  mail:
+    host: smtp.exmail.qq.com
+    username: aaaaaa@qq.com
+    password: aaaaaa
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          socketFactory:
+            class: "javax.net.ssl.SSLSocketFactory"
+          starttls:
+            enable: true
+            required: true
+    port: 465
+  batch:
+    job:
+      enabled: false
+  mvc:
+    favicon: false
+  datasource:
+    initialize: false
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: "ru.reimu.server.commons.jpa.extension.MySQLDefineDialect"
+        show_sql: true
+
+#额外详情
+info:
+  app:
+    name: "reimu-app"
+
+#日志配置
+logging:
+  config: classpath:logback.xml
+  level: info

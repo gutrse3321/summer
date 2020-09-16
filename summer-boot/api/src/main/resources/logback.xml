@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
+<configuration scan="true" scanPeriod="60 seconds">
+<!--	<property name="file.path" value="D:/logback/logs/"></property>-->
+	<property name="file.path" value="/var/log/tomcat/aimymusic/cms/"></property>
+	<property name="file.path.TD" value="Trace_debug"></property>
+	<property name="file.path.IW" value="info_Warn"></property>
+	<property name="file.path.E" value="error"></property>
+	<property name="file.path.SQL" value="sql"></property>
+	<property name="file.path.UNIFY" value="unify"></property>
+	<property name="file.path.ALL" value="aimymusic"></property>
+	
+	<appender name="FILE.TD" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>TRACE</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>NEUTRAL</onMismatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		
+		<file>${file.path}${file.path.TD}/td.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file.path}${file.path.TD}/td.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>5</maxHistory>
+	    </rollingPolicy>
+	</appender>
+	
+	<appender name="FILE.IW" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>NEUTRAL</onMismatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		
+		<file>${file.path}${file.path.IW}/iw.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file.path}${file.path.IW}/iw.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>5</maxHistory>
+	    </rollingPolicy>
+	</appender>
+	
+	<appender name="FILE.E" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		
+		<file>${file.path}${file.path.E}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file.path}${file.path.E}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>5</maxHistory>
+	    </rollingPolicy>
+	</appender>
+	
+	<!-- 打印TRACE,DEBUG,INFO -->
+	<appender name="STDOUT.ORDINARY" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>NEUTRAL</onMismatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>DENY</onMatch>
+			<onMismatch>ACCEPT</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<target>System.out</target>
+	</appender>
+	
+	<!-- 打印WARN, ERROR -->
+	<appender name="STDOUT.ERROR" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<target>System.err</target>
+	</appender>
+	
+	<appender name="FILE.SQL.E" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		
+		<file>${file.path}${file.path.SQL}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file.path}${file.path.SQL}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>5</maxHistory>
+	    </rollingPolicy>
+	</appender>
+	
+	<appender name="FILE.UNIFY.E" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		
+		<file>${file.path}${file.path.UNIFY}/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file.path}${file.path.UNIFY}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>5</maxHistory>
+	    </rollingPolicy>
+	</appender>
+	
+	<appender name="PROJECT.ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>[%-5level] [%date{HH:mm:ss}] %-80logger{80} [%-4line] - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		
+		<file>${file.path}${file.path.ALL}/all.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${file.path}${file.path.ALL}/all.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>64 MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>5</maxHistory>
+	    </rollingPolicy>
+	</appender>
+	
+	<root level="INFO">
+		<appender-ref ref="FILE.TD" />
+		<appender-ref ref="FILE.IW" />
+		<appender-ref ref="FILE.E" />
+		<appender-ref ref="STDOUT.ORDINARY" />
+		<appender-ref ref="STDOUT.ERROR" />
+		<appender-ref ref="PROJECT.ALL"></appender-ref>
+	</root>
+	
+	<!-- <logger name="com.tll.yz" level="ALL" additivity="false">
+		<appender-ref ref="PROJECT.ALL" />
+	</logger>  -->
+	
+	<logger name="com.tll.yz.config.exception" level="ALL" additivity="false">
+		<appender-ref ref="FILE.UNIFY.E"/>
+	</logger>
+</configuration>

@@ -1,0 +1,135 @@
+# server配置
+appserver:
+  active: dev
+  jdbc:
+    enable-lazy-proxy: true
+    enable-dynamic-switching: true
+    default-data-source:
+      name: "default"
+      base-url: "jdbc:mysql://127.0.0.1:3306"
+      db: "app"
+      search-url: "rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true"
+      # driver-class-name: "com.mysql.jdbc.Driver"
+      username: "root"
+      password: "123456"
+      # initial-size: 50
+      minimum-idle: 50
+      maximum-pool-size: 100
+      # max-active: 400
+      connection-timeout: 2000 # max-wait: 2000
+      # test-while-idle: true
+      # test-on-borrow: true
+      # test-on-return: false
+      validation-timeout: 1000 # validation-interval: 30000
+      connection-init-sql: "select 1" # validation-query: "select 1"
+      # time-between-eviction-runs-millis: 30000
+      # min-evictable-idle-time-millis: 300000
+      # remove-abandoned-timeout: 120
+      # remove-abandoned: true
+      read-only: false # default-read-only: false
+      auto-commit: true # default-auto-commit: true
+#    data-source:
+#      - {name: "slave",db: "aimymusic",base-url: "jdbc:mysql://127.0.0.1:3306",username : "root", password: "123456",search-url: "rewriteBatchedStatements=true&useUnicode=true&characterEncoding=utf8&useSSL=true"}
+#      - {name: "minik",db: "", base-url: ""}
+  jpa:
+    enabled: true
+    enable-transaction: true
+  mybatis:
+    enabled: true
+    type-aliases-package: "ru.reimu.server.persist.dto"
+    type-handlers-package: "ru.reimu.server.persist.typeHandler"
+    mapper-locations: "classpath:mapper/*.xml"
+  qiniu:
+    enabled: true
+    access-key: ""
+    secret-key: ""
+    expire-seconds: 3600
+    pipeline: "reimu"
+    selfmedia-notify-url: "dev.reimu.ru/api/qiniuStore/reveiveSelfMediaPfopNotify"
+    auto-notify-url: "dev.reimu.ru/api/qiniuStore/receiveAutoPfopNotify"
+    put-policy:
+      # 默认上传文件不超过200M
+      fsize-limit: 209715200
+      # 标准存储类型
+      file-type: 0
+  http:
+    enabled: true
+    time-out-socket: 20000
+    time-out-connection: 2000
+    time-out-request-connection: 20000
+    retry-number: 2
+    max-total: 500
+    client-properties:
+      userCenter:
+        https: false
+        host: "xxx.xxxxx.cn"
+        max-pre-route: 300
+        url-map:
+          axxClientId: 10009
+          axxClientSecret: xxxxxxxxxxxxxxxx
+          bxxClientId: 10010
+          bxxClientSecret: xxxxxxxxxxxxxxxxx
+          getUserInfo: /user/info
+          updateUserInfo: /user/update
+          getUserLevel: /user/level
+          registerUser: /user/register
+          smsSend: /sms/send
+          smsVerify: /sms/verify
+          queryUserExist: /client/query_user_exist
+          unbindWechat: /user/unbind/wechat
+          unbindQQ: /user/unbind/qq
+          unbindAlipay: /user/unbind/alipay
+          unbindWeibo: /user/unbind/weibo
+  shiro:
+    cms:
+      enabled: true
+  async:
+    enabled: true
+    executors:
+      - {qualifier: "cache",thread-name-prefix: "Async-cache-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
+        - {qualifier: "file",thread-name-prefix: "Async-file-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
+        - {qualifier: "push",thread-name-prefix: "Async-push-",core-pool-size: 10,max-pool-size: 50,queue-capacity: 100}
+        - {qualifier: "task",thread-name-prefix: "Async-task-",core-pool-size: 10,max-pool-size: 20,queue-capacity: 100}
+        - {qualifier: "order",thread-name-prefix: "Async-order-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
+        - {qualifier: "msg",thread-name-prefix: "Async-msg-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
+        - {qualifier: "log",thread-name-prefix: "Async-log-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 500}
+        - {qualifier: "reward",thread-name-prefix: "Async-reward-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 500}
+
+#Spring配置
+spring:
+  redis:
+    session:
+      enabled: true
+    packages-to-scan: "ru.reimu.server.service"
+    expired-time: 3600
+    page-size: 20
+    host: "207.148.105.249"
+    port: 6379
+    database: 1
+    pool:
+      max-active: 300
+      min-idle: 100
+      max-idle: 100
+      max-wait: 1000
+    password: "redis@753159"
+    timeout: 10000
+    jpa:
+      enabled: true
+      enable-transaction: true
+      generate-ddl: false
+      hibernate:
+        ddl-auto: none
+      properties:
+        hibernate:
+          #dialect: "ru.reimu.server.datasource.jpa.extension.MySQLDefineDialect"
+          show_sql: false
+  rabbitmq:
+    addresses: 207.148.105.249:5672
+    username: admin
+    password: 111111
+    listener:
+      retry:
+        max-interval: 3
+        enabled: true
+        initial-interval: 3000
+      default-requeue-rejected: true
