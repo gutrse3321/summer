@@ -2,13 +2,13 @@
 <!-- Logback configuration. See http://logback.qos.ch/manual/index.html -->
 <configuration scan="true" scanPeriod="60 seconds">
 <!--	<property name="file.path" value="D:/logback/logs/"></property>-->
-	<property name="file.path" value="/var/log/tomcat/aimymusic/cms/"></property>
+	<property name="file.path" value="./log/"></property>
 	<property name="file.path.TD" value="Trace_debug"></property>
 	<property name="file.path.IW" value="info_Warn"></property>
 	<property name="file.path.E" value="error"></property>
 	<property name="file.path.SQL" value="sql"></property>
 	<property name="file.path.UNIFY" value="unify"></property>
-	<property name="file.path.ALL" value="aimymusic"></property>
+	<property name="file.path.ALL" value="reimu"></property>
 	
 	<appender name="FILE.TD" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">

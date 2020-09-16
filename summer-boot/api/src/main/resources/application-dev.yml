@@ -87,13 +87,13 @@ appserver:
     enabled: true
     executors:
       - {qualifier: "cache",thread-name-prefix: "Async-cache-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
-        - {qualifier: "file",thread-name-prefix: "Async-file-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
-        - {qualifier: "push",thread-name-prefix: "Async-push-",core-pool-size: 10,max-pool-size: 50,queue-capacity: 100}
-        - {qualifier: "task",thread-name-prefix: "Async-task-",core-pool-size: 10,max-pool-size: 20,queue-capacity: 100}
-        - {qualifier: "order",thread-name-prefix: "Async-order-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
-        - {qualifier: "msg",thread-name-prefix: "Async-msg-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
-        - {qualifier: "log",thread-name-prefix: "Async-log-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 500}
-        - {qualifier: "reward",thread-name-prefix: "Async-reward-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 500}
+      - {qualifier: "file",thread-name-prefix: "Async-file-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
+      - {qualifier: "push",thread-name-prefix: "Async-push-",core-pool-size: 10,max-pool-size: 50,queue-capacity: 100}
+      - {qualifier: "task",thread-name-prefix: "Async-task-",core-pool-size: 10,max-pool-size: 20,queue-capacity: 100}
+      - {qualifier: "order",thread-name-prefix: "Async-order-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
+      - {qualifier: "msg",thread-name-prefix: "Async-msg-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 100}
+      - {qualifier: "log",thread-name-prefix: "Async-log-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 500}
+      - {qualifier: "reward",thread-name-prefix: "Async-reward-",core-pool-size: 10,max-pool-size: 40,queue-capacity: 500}
 
 #Spring配置
 spring:

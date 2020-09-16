@@ -28,8 +28,8 @@ spring:
       enabled: false
   mvc:
     favicon: false
-  datasource:
-    initialize: false
+#  datasource:
+#    initialize: false
   jpa:
     generate-ddl: false
     hibernate:
@@ -47,4 +47,5 @@ info:
 #日志配置
 logging:
   config: classpath:logback.xml
-  level: info
+  level:
+    - info
